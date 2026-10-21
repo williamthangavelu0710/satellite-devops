@@ -1,0 +1,30 @@
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
+
+# AWS and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+vault-password*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Docker local configuration
+.docker/
+
+# IDE
+.vscode/
+.idea/
+
+# Ansible
+*.retry
