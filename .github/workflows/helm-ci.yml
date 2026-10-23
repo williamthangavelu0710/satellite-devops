@@ -1,0 +1,40 @@
+
+name: Satellite Platform Helm CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'helm/**'
+      - '.github/workflows/helm-ci.yml'
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'helm/**'
+      - '.github/workflows/helm-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  helm-validation:
+    name: Validate Helm Chart
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Set Up Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v4.0.0
+
+      - name: Lint Helm Chart
+        run: helm lint ./helm/satellite-platform
+
+      - name: Render Helm Templates
+        run: helm template satellite-platform ./helm/satellite-platform
