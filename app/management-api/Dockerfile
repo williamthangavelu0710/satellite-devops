@@ -13,6 +13,8 @@ FROM python:3.14-slim
 WORKDIR /app
 
 COPY --from=builder /install /usr/local
+# Remove pip from the production runtime image
+RUN python -m pip uninstall -y pip
 COPY main.py .
 
 # Run as a non-root user

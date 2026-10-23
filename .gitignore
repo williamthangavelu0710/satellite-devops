@@ -28,3 +28,7 @@ __pycache__/
 
 # Ansible
 *.retry
+
+# Local container security scan artifacts
+satellite-api-scan.tar
+trivy-report.json
