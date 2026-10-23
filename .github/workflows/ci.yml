@@ -40,6 +40,14 @@ jobs:
           docker build \
             -t satellite-management-api:ci \
             ./app/management-api
+            
+      - name: Scan Docker Image with Trivy
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          image-ref: satellite-management-api:ci
+          format: table
+          exit-code: '0'
+          severity: CRITICAL,HIGH
 
       - name: Login to GitHub Container Registry
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
