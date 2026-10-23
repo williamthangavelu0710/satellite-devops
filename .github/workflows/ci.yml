@@ -1,3 +1,4 @@
+
 name: Satellite Management API CI
 
 on:
@@ -10,12 +11,25 @@ on:
 
 jobs:
   build:
-    name: Build Docker Image
+    name: Test and Build Docker Image
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      - name: Set Up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install -r app/management-api/requirements-dev.txt
+
+      - name: Run Python Tests
+        run: |
+          python -m pytest app/management-api/test_main.py -v
 
       - name: Build Docker Image
         run: |
